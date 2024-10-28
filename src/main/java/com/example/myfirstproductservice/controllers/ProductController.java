@@ -1,5 +1,6 @@
 package com.example.myfirstproductservice.controllers;
 
+import com.example.myfirstproductservice.exceptions.ProductNotExistException;
 import com.example.myfirstproductservice.models.Product;
 import com.example.myfirstproductservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    @Autowired
+
     private ProductService productService;
+    @Autowired
     public ProductController(ProductService productService){
         this.productService = productService;
     }
@@ -22,7 +24,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getASingleProduct(@PathVariable("id") Long id){
+    public Product getASingleProduct(@PathVariable("id") Long id) throws ProductNotExistException {
         return productService.getASingleProduct(id);
     }
 
@@ -32,11 +34,11 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public Product replaceAProduct(@RequestBody Product product,@PathVariable("id") Long id){
+    public Product replaceAProduct(@RequestBody Product product,@PathVariable("id") Long id) throws ProductNotExistException {
         return productService.replaceAProduct(product,id);
     }
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id") Long id){
+    public void deleteProduct(@PathVariable("id") Long id) throws ProductNotExistException {
         productService.deleteAProduct(id);
     }
 }

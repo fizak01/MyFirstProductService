@@ -14,9 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class CategoryController {
-
-    @Autowired
     private CategoryService categoryService;
+    @Autowired
     public CategoryController(CategoryService categoryService){
         this.categoryService=categoryService;
     }
